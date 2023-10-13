@@ -10,11 +10,11 @@ return [
     |
     */
 
-    'title' => 'Tablar',
+    'title' => env('APP_NAME', 'Tablar'), 
     'title_prefix' => '',
     'title_postfix' => '',
-    'bottom_title' => 'Tablar',
-    'current_version' => 'v2.9',
+    'bottom_title' => env('APP_NAME', 'Tablar'),
+    'current_version' => env('APP_VERSION', 'v2.9'),
 
 
     /*

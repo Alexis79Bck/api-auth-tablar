@@ -16,7 +16,36 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Laravel Project'),
+
+    /*
+    * Author: Alexis E. Mata
+    * Date: 13-10-2023
+    |--------------------------------------------------------------------------
+    | Application Version
+    |--------------------------------------------------------------------------
+    |
+    | This value is the version of your application. This value is used when the
+    | framework needs to place the application's version number in a notification or
+    | any other location as required by the application or its packages.
+    |
+    */
+
+    'version' => env('APP_VERSION', 'Unknown Version Number'),
+
+    /*
+    * Author: Alexis E. Mata
+    * Date: 13-10-2023
+    |--------------------------------------------------------------------------
+    | Application Logo Image & Favicon
+    |--------------------------------------------------------------------------
+    |
+    | This value is the logo image name of your application. 
+    |
+    */
+
+    'logo_image' => env('APP_LOGO_IMAGE', 'logo-default.png'),
+    'favicon' => env('APP_FAVICON', 'favicon.ico'),
 
     /*
     |--------------------------------------------------------------------------
@@ -70,7 +99,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'), 
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +112,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'en'), 
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +125,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' =>  env('APP_FALLBACK_LOCALE', 'en'), 
 
     /*
     |--------------------------------------------------------------------------
