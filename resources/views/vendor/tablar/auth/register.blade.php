@@ -3,7 +3,7 @@
 @section('content')
     <div class="container container-tight py-4">
         <div class="card card-md">
-            <form action="{{ route('login') }}" method="post" autocomplete="off" novalidate>
+            <form action="{{ route('register') }}" method="post" autocomplete="off" novalidate>
                 @csrf
                 <div class="text-center mb-1 mt-5">
                     <a href="" class="navbar-brand navbar-brand-autodark">
