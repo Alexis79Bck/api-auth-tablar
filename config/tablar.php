@@ -42,11 +42,11 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'assets/logo.svg',
-            'alt' => 'Auth Logo',
+            'path' => 'logo/logo-default.png',
+            'alt' => 'Logo',
             'class' => '',
-            'width' => 50,
-            'height' => 50,
+            'width' => 92,
+            'height' => 92,
         ],
     ],
 
