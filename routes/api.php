@@ -16,7 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('v1/auth/new-register', [AuthController::class, 'register']);
+Route::post('v1/auth/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::middleware('auth:sanctum')->group(function() {
+    Route::get('v1/auth/user', function (Request $request) {
+        return 'Bienvenido, ' . auth()->user()->fullname;
+    });
+    Route::get('v1/auth/logout', [AuthController::class, 'logout']);
 });
+

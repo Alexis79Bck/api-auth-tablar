@@ -48,10 +48,13 @@ class AuthController extends Controller
 
     public function login(Request $request): JsonResponse
     {
+        //Asignar las llaves de la solicitud a variables establecidas
+        list($loginUser, $loginPassword) = array_keys($request->input());
+        
         //Lista de reglas de validacion para los campos
         $rules = [            
-            'emailOrUsername' => ['required', 'string', 'max:100'],
-            'password' => ['required', 'string', 'min:8'],
+            $loginUser => ['required', 'string', 'max:100'],
+            $loginPassword => ['required', 'string', 'min:8'],
         ];
 
         //Metodo validador de los campos que se encuentran en la solicitud
@@ -66,11 +69,38 @@ class AuthController extends Controller
         }
 
         //Metodo que retorna el tipo de login: Username o Email
-        $login_type = $this->selectLoginType(request()->input('emailOrUsername'));
+        $loginType = $this->selectLoginType(request()->input($loginUser));
 
         request()->merge([
-            $login_type => request()->input('emailOrUsername')
+            $loginType => request()->input($loginUser)
         ]);
+
+        if (!Auth::attempt($request->only($loginType, $loginPassword))) {
+            return new JsonResponse([
+                'status' => false,
+                'errors' => [__('Unauthorized User')]
+            ], 401);
+        }
+        
+        $user = User::where($loginType, request()->input($loginType))->first();
+
+        return new JsonResponse([
+            'status' => true,
+            'data' => $user->only('id','fullname','email','username'),
+            'message' => __('User logged in successfully'),
+            'access_token' => $user->createToken(config('app.short_name'))->plainTextToken
+        ], 200);
+       
+    }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+
+        return new JsonResponse([
+            'status' => true, 
+            'message' => __('User logged out successfully'), 
+        ], 200);
     }
 
     protected function validator(array $data, array $rules)
