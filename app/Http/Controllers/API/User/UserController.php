@@ -16,12 +16,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('userInformation')->get();
+        $users = User::all();
 
         return new JsonResponse([
             'status' => true,
             'data' => $users,
-       ], 200);
+        ], 200);
     }
 
     /**
@@ -29,32 +29,38 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-            //Lista de reglas de validacion para los campos
-            $rules = [ 
-                'email' => ['required', 'string', 'email', 'max:80', 'unique:users'],
-                'username' => ['required', 'string', 'max:100', 'unique:users'],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
-            ];
-    
-            //Metodo validador de los campos que se encuentran en la solicitud
-            $validator = $this->validator($request->input(), $rules);
-    
-            //Si el metodo validador falla, returna una respuesta Json con los errores
-            if ($validator->fails()){
-                return new JsonResponse([
-                    'status' => false,
-                    'errors' => $validator->errors()->all()
-                ], 400);
-            }
-    
-            //Metodo para crear el registro del usuario
-            $user = $this->create($request->input());
-    
+        //Lista de reglas de validacion para los campos
+        $rules = [
+            'fullname' => ['required', 'string', 'max:100'],
+            'birthday' => ['required', 'date'],
+            'country' => ['required', 'string', 'max:60'],
+            'city' => ['required', 'string', 'max:60'],
+            'address' => ['nullable', 'string', 'max:100'],
+            'phone' => ['nullable', 'numeric', 'max:14'],
+            'email' => ['required', 'string', 'email', 'max:80', 'unique:users'],
+            'username' => ['required', 'string', 'max:100', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ];
+
+        //Metodo validador de los campos que se encuentran en la solicitud
+        $validator = $this->validator($request->input(), $rules);
+
+        //Si el metodo validador falla, returna una respuesta Json con los errores
+        if ($validator->fails()) {
             return new JsonResponse([
-                'status' => true,
-                'message' => __('User has been created successfully'),
-                'access_token' => $user->createToken(config('app.short_name'))->plainTextToken
-            ], 200);
+                'status' => false,
+                'errors' => $validator->errors()->all()
+            ], 400);
+        }
+
+        //Metodo para crear el registro del usuario
+        $user = $this->create($request->input());
+
+        return new JsonResponse([
+            'status' => true,
+            'message' => __('User has been created successfully'),
+            'access_token' => $user->createToken(config('app.short_name'))->plainTextToken
+        ], 200);
     }
 
     /**
@@ -83,12 +89,18 @@ class UserController extends Controller
 
     protected function validator(array $data, array $rules)
     {
-        return Validator::make($data, $rules); 
+        return Validator::make($data, $rules);
     }
 
     protected function create(array $data)
     {
         return User::create([
+            'fullname' => $data['fullname'],
+            'birthday' => $data['birthday'],
+            'country' => $data['country'],
+            'city' => $data['city'],
+            'address' => $data['address'],
+            'phone' => $data['phone'],
             'email' => $data['email'],
             'username' => $data['username'],
             'password' => Hash::make($data['password']),

@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
         "menarasolutions/geographer": "^0.3.13",
+        "spatie/laravel-permission": "^6.0",
         "takielias/tablar": "^3.0"
     },
     "require-dev": {

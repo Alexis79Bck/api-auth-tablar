@@ -12,7 +12,7 @@
         @yield('title', config('tablar.title', 'Tablar'))
         @yield('title_postfix', config('tablar.title_postfix', ''))
     </title>
-    <title>Dashboard</title>
+    <title>{{__('Dashboard')}}</title>
     <!-- CSS files -->
     @if(config('tablar','vite'))
         @vite('resources/js/app.js')
