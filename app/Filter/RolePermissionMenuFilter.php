@@ -2,39 +2,39 @@
 
 namespace App\Filter;
 
-use Illuminate\Support\Facades\Auth;
-use TakiElias\Tablar\Menu\Builder;
-use TakiElias\Tablar\Menu\Filters\FilterInterface;
+// use Illuminate\Support\Facades\Auth;
+// use TakiElias\Tablar\Menu\Builder;
+// use TakiElias\Tablar\Menu\Filters\FilterInterface;
 
-class RolePermissionMenuFilter implements FilterInterface
+class RolePermissionMenuFilter 
 {
-    public function transform($item, Builder $builder)
-    {
-        if (!$this->isVisible($item)) {
-            return false;
-        }
+    // public function transform($item, Builder $builder)
+    // {
+    //     if (!$this->isVisible($item)) {
+    //         return false;
+    //     }
 
-        return $item['header'] ?? $item;
-    }
+    //     return $item['header'] ?? $item;
+    // }
 
-    protected function isVisible($item)
-    {
-        $user = Auth::user();
+    // protected function isVisible($item)
+    // {
+    //     $user = Auth::user();
 
-        // Check for roles
-        $hasAnyRole = $item['hasAnyRole'] ?? null;
-        $hasRole = $item['hasRole'] ?? null;
+    //     // Check for roles
+    //     $hasAnyRole = $item['hasAnyRole'] ?? null;
+    //     $hasRole = $item['hasRole'] ?? null;
 
-        if (($hasAnyRole && $user->hasAnyRole($hasAnyRole)) || ($hasRole && $user->hasRole($hasRole))) {
-            return true;
-        }
+    //     if (($hasAnyRole && $user->hasAnyRole($hasAnyRole)) || ($hasRole && $user->hasRole($hasRole))) {
+    //         return true;
+    //     }
 
-        return $this->checkPermissions($item, $user) ?? true;
-    }
+    //     return $this->checkPermissions($item, $user) ?? true;
+    // }
 
-    protected function checkPermissions($item, $user)
-    {
-        $hasAnyPermission = $item['hasAnyPermission'] ?? null;
-        return $hasAnyPermission ? $user->hasAnyPermission($hasAnyPermission) : null;
-    }
+    // protected function checkPermissions($item, $user)
+    // {
+    //     $hasAnyPermission = $item['hasAnyPermission'] ?? null;
+    //     return $hasAnyPermission ? $user->hasAnyPermission($hasAnyPermission) : null;
+    // }
 }

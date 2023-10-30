@@ -1,0 +1,84 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Login & Logout API For Testing",
+        "description": "URI's para Login y Logout API",
+        "version": "0.1b"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api-auth-tablar/public/api"
+        }
+    ],
+    "paths": {
+        "/v1/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login del Usuario",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Datos del Login",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "usernameOrEmail",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "usernameOrEmail": {
+                                        "description": "Nombre de Usuario o Correo Electrónico",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "Contraseña",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Inicio de sesión exitosa"
+                    },
+                    "401": {
+                        "description": "Usuario no autorizado"
+                    },
+                    "400": {
+                        "description": "Credenciales Incorrecta"
+                    }
+                }
+            }
+        },
+        "/v1/auth/logout": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout del Usuario",
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "Cierre de sesión exitosa"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

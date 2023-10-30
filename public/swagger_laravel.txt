@@ -1,0 +1,89 @@
+/**
+* @OA\Info(
+*             title="Título que mostraremos en swagger", 
+*             version="1.0",
+*             description="Descripcion"
+* )
+*
+* @OA\Server(url="host de nuestro proyecto")
+*/
+
+
+/**
+     * Título que define lo que hará esta URI
+     * @OA\Get (
+     *     path="definimos la ruta del endpoint",
+     *     tags={"Un nombre para agrupar las rutas de nuestra API"},
+     *     @OA\Response(
+     *         response=codigo_petición,
+     *         description="descripción o el nombre del código de la petición",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="array",
+     *                 property="rows",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(
+     *                         property="id",
+     *                         type="number",
+     *                         example="1"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="nombres",
+     *                         type="string",
+     *                         example="Aderson Felix"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="apellidos",
+     *                         type="string",
+     *                         example="Jara Lazaro"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="created_at",
+     *                         type="string",
+     *                         example="2023-02-23T00:09:16.000000Z"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="updated_at",
+     *                         type="string",
+     *                         example="2023-02-23T12:33:45.000000Z"
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
+
+
+ /**
+     * Mostrar la información de un cliente
+     * @OA\Get (
+     *     path="/api/clientes/{id}",
+     *     tags={"Cliente"},
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="id", type="number", example=1),
+     *              @OA\Property(property="nombres", type="string", example="Aderson Felix"),
+     *              @OA\Property(property="apellidos", type="string", example="Jara Lazaro"),
+     *              @OA\Property(property="created_at", type="string", example="2023-02-23T00:09:16.000000Z"),
+     *              @OA\Property(property="updated_at", type="string", example="2023-02-23T12:33:45.000000Z")
+     *         )
+     *     ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="NOT FOUND",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="No query results for model [App\\Models\\Cliente] #id"),
+     *          )
+     *      )
+     * )
+     */
