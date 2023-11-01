@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Login & Logout API For Testing",
-        "description": "URI's para Login y Logout API",
+        "title": "Users CRUD, Login & Logout API For Testing",
+        "description": "API CRUD de usuarios, Login & Logout para Pruebas ",
         "version": "0.1b"
     },
     "servers": [
@@ -14,12 +14,12 @@
         "/v1/auth/login": {
             "post": {
                 "tags": [
-                    "Auth"
+                    "AUTH"
                 ],
                 "summary": "Login del Usuario",
                 "operationId": "login",
                 "requestBody": {
-                    "description": "Datos del Login",
+                    "description": "Datos de Autenticación para Inicio de Sesión",
                     "required": true,
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -59,13 +59,118 @@
         "/v1/auth/logout": {
             "get": {
                 "tags": [
-                    "Auth"
+                    "AUTH"
                 ],
                 "summary": "Logout del Usuario",
                 "operationId": "logout",
                 "responses": {
                     "200": {
                         "description": "Cierre de sesión exitosa"
+                    }
+                }
+            }
+        },
+        "/v1/users": {
+            "get": {
+                "tags": [
+                    "USERS"
+                ],
+                "summary": "Display a listing of the resource.",
+                "description": "Mostrar listado de Usuarios",
+                "operationId": "9b1f09ab22ffe6f8c099f1614bd03deb",
+                "responses": {
+                    "200": {
+                        "description": "Lista de todos los Usuarios",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "fullname": {
+                                                        "type": "string",
+                                                        "example": "John Doe"
+                                                    },
+                                                    "birthday": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "1981-04-01"
+                                                    },
+                                                    "phone": {
+                                                        "type": "string",
+                                                        "example": "3351425869"
+                                                    },
+                                                    "address": {
+                                                        "type": "string",
+                                                        "example": "Urb. Virgen del Carmen, Conjunto Residencial La Floresta"
+                                                    },
+                                                    "country": {
+                                                        "type": "string",
+                                                        "example": "Venezuela"
+                                                    },
+                                                    "city": {
+                                                        "type": "string",
+                                                        "example": "Puerto La Cruz"
+                                                    },
+                                                    "email": {
+                                                        "type": "email",
+                                                        "example": "john.doe43@example.com"
+                                                    },
+                                                    "username": {
+                                                        "type": "string",
+                                                        "example": "jdoe43"
+                                                    },
+                                                    "status": {
+                                                        "type": "boolean",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2023-02-23T00:09:16.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "Lista Vacía",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -10,15 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-/**
-* @OA\Info(
-*             title="Login & Logout API For Testing", 
-*             version="0.1b",
-*             description="URI's para Login y Logout API"
-* )
-*
-* @OA\Server(url="http://localhost/api-auth-tablar/public/api")
-*/
+
 
 class AuthController extends Controller
 {
@@ -28,9 +20,9 @@ class AuthController extends Controller
      * @OA\Post (
      *     path="/v1/auth/login",
      *     operationId="login",
-     *     tags={"Auth"}, 
+     *     tags={"AUTH"}, 
      *      @OA\RequestBody(
-     *         description="Datos del Login",
+     *         description="Datos de Autenticación para Inicio de Sesión",
      *         required=true,         
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
@@ -122,7 +114,7 @@ class AuthController extends Controller
      * @OA\Get (
      *     path="/v1/auth/logout",
      *     operationId="logout",
-     *     tags={"Auth"}, 
+     *     tags={"AUTH"}, 
      *     @OA\Response(
      *         response=200,
      *         description="Cierre de sesión exitosa",

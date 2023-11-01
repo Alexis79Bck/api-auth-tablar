@@ -13,15 +13,116 @@ class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */
+     * 
+     * Mostrar listado de Usuarios
+     * @OA\Get (
+     *     path="/v1/users",
+     *     tags={"USERS"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de todos los Usuarios",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="boolean",
+     *                 property="status",
+     *                 example="true"
+     *             ),
+     *             @OA\Property(
+     *                 type="array",
+     *                 property="data",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(
+     *                         property="id",
+     *                         type="number",
+     *                         example="1"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="fullname",
+     *                         type="string",
+     *                         example="John Doe"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="birthday",
+     *                         type="date",
+     *                         example="1981-04-01"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="phone",
+     *                         type="string",
+     *                         example="3351425869"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="address",
+     *                         type="string",
+     *                         example="Urb. Virgen del Carmen, Conjunto Residencial La Floresta"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="country",
+     *                         type="string",
+     *                         example="Venezuela"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="city",
+     *                         type="string",
+     *                         example="Puerto La Cruz"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="email",
+     *                         type="email",
+     *                         example="john.doe43@example.com"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="username",
+     *                         type="string",
+     *                         example="jdoe43"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="status",
+     *                         type="boolean",
+     *                         example=1
+     *                     ),
+     *                     @OA\Property(
+     *                         property="created_at",
+     *                         type="string",
+     *                         example="2023-02-23T00:09:16.000000Z"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="updated_at",
+     *                         type="string",
+     *                         example="2023-02-23T12:33:45.000000Z"
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Lista Vacía",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="boolean",
+     *                 property="status",
+     *                 example="true"
+     *             ),
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="data",
+     *                 example=null
+     *             ),
+     *         )
+     *     )
+     * )
+     */    
     public function index()
     {
         $users = User::all();
 
-        return new JsonResponse([
-            'status' => true,
-            'data' => $users,
-        ], 200);
+       return  new JsonResponse([
+                        'status' => true,
+                        'data' => $users,
+                    ], isset($users) ? 200 : 204);
+            
     }
 
     /**
@@ -45,7 +146,7 @@ class UserController extends Controller
         //Metodo validador de los campos que se encuentran en la solicitud
         $validator = $this->validator($request->input(), $rules);
 
-        //Si el metodo validador falla, returna una respuesta Json con los errores
+        //Si el metodo validador falla, retorna una respuesta Json con los errores
         if ($validator->fails()) {
             return new JsonResponse([
                 'status' => false,
@@ -66,7 +167,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
         //
     }
