@@ -113,20 +113,135 @@ class UserController extends Controller
      *         )
      *     )
      * )
+     * 
+     * Retorna todos los usuarios registrados o los datos vacíos
      */    
     public function index()
     {
         $users = User::all();
 
-       return  new JsonResponse([
+        return  new JsonResponse([
                         'status' => true,
                         'data' => $users,
                     ], isset($users) ? 200 : 204);
             
     }
 
+
     /**
-     * Store a newly created resource in storage.
+     * Guarda los datos del Nuevo Usuario
+     * @OA\Post (
+     *     path="/v1/users/",
+     *     tags={"USERS"}, 
+     *     @OA\RequestBody(
+     *         description="Datos del Formulario para Crear Nuevo Usuario",
+     *         required=true,         
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="fullname",
+     *                     description="Nombre Completo",
+     *                     type="string",
+     *                     example="John Doe"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="birthday",
+     *                     description="Fecha de Nacimiento",
+     *                     type="date",
+     *                     example="1995-05-25"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="country",
+     *                     description="País",
+     *                     type="string",
+     *                     example="Venezuela"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="city",
+     *                     description="Ciudad",
+     *                     type="string",
+     *                     example="Porlamar"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="phone",
+     *                     description="Teléfono",
+     *                     type="string",
+     *                     example="John Doe"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="address",
+     *                     description="Dirección",
+     *                     type="string",
+     *                     example="John Doe"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     description="correo Electrónico",
+     *                     type="email",
+     *                     example="john.doe@example"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="username",
+     *                     description="Nombre de Usuario",
+     *                     type="string",
+     *                     example="John.Doe66"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     description="Contraseña",
+     *                     type="password",
+     *                     example="testing123"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password_confirmation",
+     *                     description="Confirmación de Password",
+     *                     type="password",
+     *                     example="testing123"
+     *                 ),
+     *                required={"fullname","birthday","country","city","username","email", "password","password_confirmation"}
+     *             )
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Usuario creado exitosamente",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="boolean",
+     *                 property="status",
+     *                 example="true"
+     *             ),
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="message",
+     *                 example="El usuario ha sido creado exitosamente."
+     *             ),
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="access_token",
+     *             ),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Con errores encontrados",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 type="boolean",
+     *                 property="status",
+     *                 example="false"
+     *             ),
+     *             @OA\Property(
+     *                 type="string",
+     *                 property="errors",
+     *             ),
+     *         )
+     *     )
+     * )
+     * 
+     * Almacena la información del nuevo usuario y genera un token de acceso.
      */
     public function store(Request $request)
     {

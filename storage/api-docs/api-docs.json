@@ -174,6 +174,133 @@
                     }
                 }
             }
+        },
+        "/v1/users/": {
+            "post": {
+                "tags": [
+                    "USERS"
+                ],
+                "summary": "Guarda los datos del Nuevo Usuario",
+                "operationId": "d1533e2f3382723837db313471f9d848",
+                "requestBody": {
+                    "description": "Datos del Formulario para Crear Nuevo Usuario",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "fullname",
+                                    "birthday",
+                                    "country",
+                                    "city",
+                                    "username",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "fullname": {
+                                        "description": "Nombre Completo",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "birthday": {
+                                        "description": "Fecha de Nacimiento",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1995-05-25"
+                                    },
+                                    "country": {
+                                        "description": "País",
+                                        "type": "string",
+                                        "example": "Venezuela"
+                                    },
+                                    "city": {
+                                        "description": "Ciudad",
+                                        "type": "string",
+                                        "example": "Porlamar"
+                                    },
+                                    "phone": {
+                                        "description": "Teléfono",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "address": {
+                                        "description": "Dirección",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "description": "correo Electrónico",
+                                        "type": "email",
+                                        "example": "john.doe@example"
+                                    },
+                                    "username": {
+                                        "description": "Nombre de Usuario",
+                                        "type": "string",
+                                        "example": "John.Doe66"
+                                    },
+                                    "password": {
+                                        "description": "Contraseña",
+                                        "type": "password",
+                                        "example": "testing123"
+                                    },
+                                    "password_confirmation": {
+                                        "description": "Confirmación de Password",
+                                        "type": "password",
+                                        "example": "testing123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario creado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "El usuario ha sido creado exitosamente."
+                                        },
+                                        "access_token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Con errores encontrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        },
+                                        "errors": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
